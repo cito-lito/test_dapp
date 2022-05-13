@@ -1,0 +1,45 @@
+{
+    "dotenv": ".env",
+    "networks": {
+        "rinkeby": {
+            "pool_addr_provider": "0xBA6378f1c1D046e9EB0F538560BA7558546edF3C",
+            "weth": "0xd74047010D77c5901df5b0f9ca518aED56C85e8D",
+            "dai": "0x4aAded56bd7c69861E8654719195fCA9C670EB45",
+            "aDAI": "0x49866611AA7Dc30130Ac6A0DF29217D16FD87bc0",
+            "aWETH": "0x608D11E704baFb68CfEB154bF7Fd641120e33aD4",
+            "wethGateway": "0xD1DECc6502cc690Bc85fAf618Da487d886E54Abe"
+        },
+        "rinkeby-alchemy": {
+            "pool_addr_provider": "0xBA6378f1c1D046e9EB0F538560BA7558546edF3C",
+            "weth": "0xd74047010D77c5901df5b0f9ca518aED56C85e8D",
+            "dai": "0x4aAded56bd7c69861E8654719195fCA9C670EB45",
+            "aDAI": "0x49866611AA7Dc30130Ac6A0DF29217D16FD87bc0",
+            "aWETH": "0x608D11E704baFb68CfEB154bF7Fd641120e33aD4"
+        },
+        "kovan": {
+            "pool_addr_provider": "0x651b8A8cA545b251a8f49B57D5838Da0a8DFbEF9",
+            "weth": "",
+            "dai": ""
+        },
+        "mainnet-fork": {
+            "pool_addr_provider": "",
+            "weth": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+            "dai": ""
+        },
+        "polygon-main-fork": {
+            "pool_addr_provider": "",
+            "weth": "",
+            "dai": ""
+        },
+        "polygon-main": {
+            "pool_addr_provider": "",
+            "weth": "",
+            "dai": ""
+        },
+        "polygon-test": {
+            "pool_addr_provider": "0x5343b5bA672Ae99d627A1C87866b8E53F47Db2E6",
+            "weth": "",
+            "dai": "0xC87385b5E62099f92d490750Fcd6C901a524BBcA"
+        }
+    }
+}

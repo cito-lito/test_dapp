@@ -1,0 +1,27 @@
+{
+  "contracts": {},
+  "tests": {
+    "tests/test_aave_deposit.py": {
+      "coverage": false,
+      "isolated": false,
+      "results": "F.",
+      "sha1": "6cb7f208c6c316a68c3a40cbfa723f957e8567cc",
+      "txhash": []
+    },
+    "tests/test_erc20.py": {
+      "coverage": false,
+      "isolated": false,
+      "results": "....",
+      "sha1": "16fc588adfc47b3ac9b06c3347932f182ade496e",
+      "txhash": []
+    },
+    "tests/test_weth.py": {
+      "coverage": false,
+      "isolated": false,
+      "results": "...",
+      "sha1": "87057cafc63b2dfddafc08d19c5a32bb923f782d",
+      "txhash": []
+    }
+  },
+  "tx": {}
+}
