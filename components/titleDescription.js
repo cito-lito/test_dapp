@@ -13,10 +13,10 @@ export default function TitleDescription() {
                     Get test tokens:
                 </Typography>
                 <Typography variant="h6" align="center" color="text.secondary" component="p">
-                    <a href="https://faucets.chain.link/rinkeby" target="_blank">Eth rinkeby</a>
+                    <a href="https://faucets.chain.link/rinkeby" target="_blank" rel="noreferrer">Eth rinkeby</a>
                 </Typography>
                 <Typography variant="h6" align="center" color="text.secondary" component="p">
-                    <a href="https://staging.aave.com/faucet/" target="_blank">Aave rinkeby test assets</a>
+                    <a href="https://staging.aave.com/faucet/" target="_blank" rel="noreferrer">Aave rinkeby test assets</a>
                 </Typography>
             </Container>
         </div>)
