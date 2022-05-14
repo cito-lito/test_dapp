@@ -13,6 +13,9 @@ export default function TitleDescription() {
                     Get test tokens:
                 </Typography>
                 <Typography variant="h6" align="center" color="text.secondary" component="p">
+                    <a href="https://rinkebyfaucet.com/" target="_blank" rel="noreferrer">Eth rinkeby</a>
+                </Typography>
+                <Typography variant="h6" align="center" color="text.secondary" component="p">
                     <a href="https://faucets.chain.link/rinkeby" target="_blank" rel="noreferrer">Eth rinkeby</a>
                 </Typography>
                 <Typography variant="h6" align="center" color="text.secondary" component="p">
