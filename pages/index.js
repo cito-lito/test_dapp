@@ -72,7 +72,7 @@ export default function Home() {
       userBalances(data.networks.rinkeby.aWETH, provider, account).then((value) => {
         setAWethBalance(value)
       })
-      userBalances("ether",provider, account).then((value) => {
+      userBalances("ether", provider, account).then((value) => {
         setEthBalance(value)
       })
 
@@ -348,6 +348,12 @@ export default function Home() {
       </Container>
 
       {/* Footer */}
+      <Typography variant="h6" align="center" color="text.secondary" component="p">
+        <a href="https://github.com/cito-lito/test_dapp" target="_blank" rel="noreferrer">github repo</a>
+
+      </Typography>
+
+      
 
     </React.Fragment>
   )
