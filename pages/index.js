@@ -126,7 +126,7 @@ export default function Home() {
       }
     }
     getUserAccountData();
-  }, [inputDAIborrow, setUserData, setReserveDAIdata]);
+  }, [apyWeth, setUserData, setReserveDAIdata]);
 
   updateUserData();
 
@@ -348,7 +348,7 @@ export default function Home() {
               <CardContent>
                 <Box sx={sx_card}>
                   <Typography component="h1" variant="body1">
-                    <ul> APY: {reserveDAIdata[0].toFixed(7)} %</ul>
+                    <ul> APY: {reserveDAIdata[0].toFixed(5)} %</ul>
                     <ul> Balance: {daiBalance}</ul>
                     <ul> Deposited: {aDaiBalance}</ul>
                   </Typography>

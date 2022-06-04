@@ -121,6 +121,10 @@ export async function borrowFromAaveStable(asset_addr, amount, provider, account
 export async function repayStable(asset_addr, amount, provider, account) {
     try {
         const pool = await getPoolContractWrite(provider)
+        const erc20Contract = await getERC20ContractWrite(asset_addr, provider)
+
+        const tx_approve = await erc20Contract.approve(pool.address, amount)
+        await tx_approve.wait();
         // repay stable debt
         const tx_repay = await pool.repay(asset_addr, amount, 1, account)
         return tx_repay.wait()
