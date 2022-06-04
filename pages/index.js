@@ -307,7 +307,7 @@ export default function Home() {
               <CardContent>
                 <Box sx={sx_card}>
                   <Typography component="h1" variant="body1">
-                    <ul> APY: {apyWeth.toFixed(7)} %</ul>
+                    <ul> APY: {apyWeth.toFixed(5)} %</ul>
                     <ul> Balance: {ethBalance}</ul>
                     <ul> Deposited: {aWethBalance}</ul>
                   </Typography>
