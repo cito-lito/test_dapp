@@ -25,14 +25,14 @@ export default function ConnectMetamask() {
     if (!active) {
         return (
             <div >
-                <Button href="#" variant="outlined" sx={{ my: 1, mx: 1.5 }}
+                <Button href="#" color='primary' variant="outlined" sx={{ my: 1, mx: 1.5 }}
                     onClick={() => { activate(injected) }}>Connect Metamask</Button>
             </div >
         )
 
     } else if (chainId == 4) {
         return (
-            <div>{account}
+            <div >{account}
                 < Button href="#" variant="text" sx={{ my: 1, mx: 1.5 }} color="error"
                     onClick={deactivate} > disconnect</Button >
             </div >

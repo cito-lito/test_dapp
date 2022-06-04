@@ -60,10 +60,82 @@ async function getERC20ContractWrite(erc_addr, provider) {
 }
 
 /**
+ * Get user account data from pool contract
+ */
+async function getUserData(provider, account) {
+    try {
+        const pool = await getPoolContract(provider)
+        // const data = [
+        //     totalCollateralBase,
+        //     totalDebtBase,
+        //     availableBorrowsBase,
+        //     currentLiquidationThreshold,
+        //     ltv,
+        //     healthFactor,
+        // ]
+        let tmp = new Array(6)
+        tmp = await pool.getUserAccountData(account)
+        return tmp
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+
+/**
+ * get processed user account data 
+ * //* user data: 
+            // totalCollateralBase,
+            // totalDebtBase,
+            // availableBorrowsBase,
+            // currentLiquidationThreshold,
+            // ltv,
+            // healthFactor    
+ */
+export async function getProcessedUserData(provider, account) {
+    let tmp = new Array(6)
+    const data = await getUserData(provider, account)
+    for (var i = 0; i < data.length; i++) {
+        tmp[i] = Number(data[i].toBigInt())
+    }
+    return tmp
+}
+
+/**
+ * borrow a specific `amount` of the reserve underlying asset
+ */
+export async function borrowFromAaveStable(asset_addr, amount, provider, account) {
+    try {
+        const pool = await getPoolContractWrite(provider)
+        // stable rate deposit
+        const tx_borrow = await pool.borrow(asset_addr, amount, 1, 0, account)
+        return tx_borrow.wait()
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+/**
+ * Repays a borrowed `amount` on a specific reserve, burning the equivalent debt tokens owned
+ */
+export async function repayStable(asset_addr, amount, provider, account) {
+    try {
+        const pool = await getPoolContractWrite(provider)
+        // repay stable debt
+        const tx_repay = await pool.repay(asset_addr, amount, 1, account)
+        return tx_repay.wait()
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+
+
+/////// use getAssetReserveData() when refactoring...
+/**
  * Returns the computed apy of the lending pool for a given asset
  */
 export async function getApy(asset_addr, provider) {
-
     try {
         const pool = await getPoolContract(provider)
         const [
@@ -89,7 +161,56 @@ export async function getApy(asset_addr, provider) {
         const supplyRateNumber = Number(supplyRate)
         const depositAPR = supplyRateNumber / RAY
         const depositAPY = ((1 + (depositAPR / SECONDS_PER_YEAR)) ** SECONDS_PER_YEAR) - 1
-        return (depositAPY*100);
+        return (depositAPY * 100);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function getAssetReserveData(asset_addr, provider) {
+    try {
+        const pool = await getPoolContract(provider)
+        const [
+            configuration,
+            liquidityIndex,
+            currentLiquidityRate,
+            variableBorrowIndex,
+            currentVariableBorrowRate,
+            currentStableBorrowRate,
+            lastUpdateTimestamp,
+            id,
+            aTokenAddress,
+            stableDebtTokenAddress,
+            variableDebtTokenAddress,
+            interestRateStrategyAddress,
+            accruedToTreasury,
+            unbacked,
+            isolationModeTotalDebt,
+
+        ] = await pool.getReserveData(asset_addr)
+
+        let data = new Array()
+
+        // get deposit APY
+        const supplyRate = currentLiquidityRate.toBigInt()
+        const supplyRateNumber = Number(supplyRate)
+        console.log("supply rate", supplyRateNumber)
+        const depositAPR = supplyRateNumber / RAY
+        const depositAPY = ((1 + (depositAPR / SECONDS_PER_YEAR)) ** SECONDS_PER_YEAR) - 1
+
+        // get stable borrow APY
+        const stableRate = (currentStableBorrowRate.toBigInt())
+        const stableRateNumber = Number(stableRate)
+        console.log(stableRateNumber)
+        const stableRateAPR = stableRateNumber / RAY
+        console.log("st", stableRateAPR)
+        const stableBorrowAPY = ((1 + (stableRateAPR / SECONDS_PER_YEAR)) ** SECONDS_PER_YEAR) - 1
+
+        data.push(depositAPY * 100)
+        data.push(stableBorrowAPY * 100)
+        data.push(aTokenAddress)
+        data.push(stableDebtTokenAddress)
+        return data
     } catch (error) {
         console.error(error);
     }
@@ -134,24 +255,24 @@ export async function withdrawFromAave(assetAddr, amount, addrTo, provider) {
 /**
  * Deposit ETH using WethGateway
  */
- export async function depositETHtoAave(onBehalfOf, referralCode = 0, provider, amount){
+export async function depositETHtoAave(onBehalfOf, referralCode = 0, provider, amount) {
     try {
         const pool = await getPoolContract(provider);
-        const contract = new ethers.Contract(data.networks.rinkeby.wethGateway, IWETHGateway.abi, provider.getSigner()) 
-        const tx = await contract.depositETH(pool.address, onBehalfOf, referralCode, {value: amount})
+        const contract = new ethers.Contract(data.networks.rinkeby.wethGateway, IWETHGateway.abi, provider.getSigner())
+        const tx = await contract.depositETH(pool.address, onBehalfOf, referralCode, { value: amount })
         return await tx.wait()
     } catch (error) {
-       console.error(error) 
+        console.error(error)
     }
 }
 
 /**
  * Withdraw ETH using WethGateway
  */
-export async function withdrawETHfromAave(onBehalfOf, provider, amount){
+export async function withdrawETHfromAave(onBehalfOf, provider, amount) {
     try {
         const pool = await getPoolContract(provider);
-        const contract = new ethers.Contract(data.networks.rinkeby.wethGateway, IWETHGateway.abi, provider.getSigner()) 
+        const contract = new ethers.Contract(data.networks.rinkeby.wethGateway, IWETHGateway.abi, provider.getSigner())
         const aweth = await getERC20ContractWrite(data.networks.rinkeby.aWETH, provider)
         const tx_approve = await aweth.approve(contract.address, amount)
         await tx_approve.wait()
@@ -160,6 +281,6 @@ export async function withdrawETHfromAave(onBehalfOf, provider, amount){
         console.log(tx)
         return await tx.wait()
     } catch (error) {
-       console.error(error) 
+        console.error(error)
     }
 }
