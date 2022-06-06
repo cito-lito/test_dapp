@@ -122,7 +122,6 @@ export async function repayStable(asset_addr, amount, provider, account) {
     try {
         const pool = await getPoolContractWrite(provider)
         const erc20Contract = await getERC20ContractWrite(asset_addr, provider)
-
         const tx_approve = await erc20Contract.approve(pool.address, amount)
         await tx_approve.wait();
         // repay stable debt
@@ -230,10 +229,8 @@ export async function depositToAave(assetAddr, amount, referralCode = 0, provide
         const pool = await getPoolContractWrite(provider);
         //approve amount to deposit in the aave vault
         const erc20Contract = await getERC20ContractWrite(assetAddr, provider)
-        console.log("ercContract", erc20Contract)
         const tx_approve = await erc20Contract.approve(pool.address, amount)
         await tx_approve.wait();
-        console.log("approve tx", tx_approve)
         //deposit amount into the aave vault
         const tx_deposit = await pool.supply(assetAddr, amount, account, referralCode)
         return await tx_deposit.wait();
