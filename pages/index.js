@@ -13,24 +13,21 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { theme, sx_card, sx_header, sx_headerBorrow } from '../stile';
+import { sx_card, sx_header, sx_headerBorrow } from '../stile';
 import TitleDescription from '../components/titleDescription';
 import ConnectMetamask from '../components/connectMetamask';
 import { useWeb3React } from '@web3-react/core'
 import { ethers } from 'ethers';
 import * as data from "../brownie-config.json"
-import * as erc20 from "../brownie_build/interfaces/IERC20.json"
 import { useState, useEffect } from 'react';
 import {
   getAssetReserveData, getProcessedUserData, getApy, depositToAave, repayStable,
   withdrawFromAave, depositETHtoAave, withdrawETHfromAave, borrowFromAaveStable
 } from '../lendingPoolAaveV3';
-import { parseUnits } from 'ethers/lib/utils';
 import { userBalances } from '../balances';
 
 
-// market is in usd, set reserves values (borroe power, debt values...) to usd
+// market is in usd, set reserves values (borrow power, debt values...) to usd
 const TO_MARKET = 10 ** 18
 
 
@@ -65,6 +62,7 @@ export default function Home() {
   const [aWethBalance, setAWethBalance] = useState(0);
   const [ethBalance, setEthBalance] = useState(0);
   const [stDebtDai, setStDebtDai] = useState(0);
+
   //* user data: 
   // totalCollateralBase,
   // totalDebtBase,
@@ -72,6 +70,7 @@ export default function Home() {
   // currentLiquidationThreshold,
   // ltv,
   // healthFactor      
+  ////// init to 0
   const [userData, setUserData] = useState([0, 0, 0, 0, 0, 0]);
 
   // reserve data:
@@ -79,6 +78,7 @@ export default function Home() {
   // currentStableBorrowRate,
   // aTokenAddress,
   // stableDebtTokenAddress,
+  /////// init to 0 and aTokens to underlaying asset
   const [reserveDAIdata, setReserveDAIdata] = useState([0, 0, data.networks.rinkeby.dai, data.networks.rinkeby.dai]);
 
   const updateUserData = () => {
