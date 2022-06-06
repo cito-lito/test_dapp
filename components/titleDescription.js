@@ -9,7 +9,7 @@ export default function TitleDescription() {
                     color="text.secondary" gutterBottom >
                      <ul>****Deposit ETH or DAI to earn interst****</ul> 
                      <ul>****Borrow DAI at stable interest rate**** </ul>
-                     <ul>--using Aave (rinkeby testnet)--</ul>
+                     <ul>--using Aave V3 (rinkeby testnet)--</ul>
                     <br></br>
                 </Typography>
                 <Typography variant="button" align="center" color="text.secondary" component="p">
