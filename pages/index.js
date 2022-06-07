@@ -27,7 +27,7 @@ import {
 import { userBalances } from '../balances';
 
 
-// market is in usd, set reserves values (borrow power, debt values...) to usd
+// set to 18 decimals
 const TO_MARKET = 10 ** 18
 
 
@@ -389,8 +389,9 @@ export default function Home() {
               <CardContent>
                 <Box sx={sx_card} >
                   <Typography color="text.secondary" component="h1" variant="body1">
-                    <ul> Stable Borrow Rate: {reserveDAIdata[1].toFixed(4)} %</ul>
-                    <ul> Max Borroable: {((userData[2] / 10 ** 8)) * 0.95}</ul>
+                    <ul> Stable Borrow APY: {reserveDAIdata[1].toFixed(4)} %</ul>
+                    {/* max boorowable is set to 95%, avoid liquidations */}
+                    <ul> Max Borrowable: {((userData[2] / 10 ** 8)) * 0.95}</ul>
                     <ul> DAI Debt: {(stDebtDai)}</ul>
                     {/* display debt in usd */}
                     {/* <ul> Total Debt: {(userData[1]) / (10 ** 8)}</ul> */}

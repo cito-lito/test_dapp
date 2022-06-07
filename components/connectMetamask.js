@@ -32,7 +32,7 @@ export default function ConnectMetamask() {
 
     } else if (chainId == 4) {
         return (
-            <div >{account}
+            <div >User Address: {account}
                 < Button href="#" variant="text" sx={{ my: 1, mx: 1.5 }} color="error"
                     onClick={deactivate} > disconnect</Button >
             </div >
