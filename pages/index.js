@@ -396,7 +396,7 @@ export default function Home() {
                     {/* display debt in usd */}
                     {/* <ul> Total Debt: {(userData[1]) / (10 ** 8)}</ul> */}
                     {/* display Hf */}
-                    <ul> Health Factor: {(userData[5]) / (TO_MARKET) / 100}</ul>
+                    <ul> Health Factor: {(userData[5]) / (TO_MARKET) }</ul>
                   </Typography>
                 </Box>
               </CardContent>
