@@ -1,4 +1,4 @@
-- name: todo-issue
+  name: todo-issue
   # You may pin to the exact commit or the version.
   # uses: DerJuulsn/todo-issue@4135985ede9c6637c342b8fa881a4f59a7aad947
   uses: DerJuulsn/todo-issue@v1.1.2
